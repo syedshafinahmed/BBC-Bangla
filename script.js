@@ -1,20 +1,66 @@
 const categoryContainer = document.getElementById("category-container");
+const newsContainer = document.getElementById("news-container");
 
 const loadCategory = () => {
     fetch('https://news-api-fs.vercel.app/api/categories')
         .then(res => res.json())
         .then(data => {
             const categories = data.categories
-            console.log(data.categories)
-            categories.forEach( cat => {
-                categoryContainer.innerHTML += `
-                <li class="hover:border-b-4 hover:border-red-700 cursor-pointer">${cat.title}</li>`
-            })
+            console.log(categories);
+            showCategory(categories);
         })
         .catch(err => {
             console.log(err)
         })
 };
+
+
+const showCategory = (categories) => {
+    categories.forEach(cat => {
+        categoryContainer.innerHTML += `<li id="${cat.id}" class="hover:border-b-4 hover:border-red-700 cursor-pointer">${cat.title}</li>`;
+    });
+    categoryContainer.addEventListener('click', (e) =>{
+        const allLi = document.querySelectorAll("li")
+        console.log(allLi);
+        allLi.forEach(li => {
+            li.classList.remove("border-b-4");
+            li.classList.remove("border-red-700");
+        })
+        if(e.target.localName === 'li'){
+            console.log(e.target.id);
+            e.target.classList.add("border-b-4")
+            e.target.classList.add("border-red-700")
+            loadNewsByCategory(e.target.id)
+        }
+    })
+}
+
+
+
+const showNewsByCategory = (articles) =>{
+    newsContainer.innerHTML = ""
+    articles.forEach(article => {
+        newsContainer.innerHTML += `
+        <div>
+            <div>
+                <img src="${article.image.srcset[5].url}"
+            </div>
+            <h1>${article.title}</h1>
+        </div>`
+    })
+}
+
+const loadNewsByCategory = (categoryId) =>{
+    console.log(categoryId);
+    fetch(`https://news-api-fs.vercel.app/api/categories/${categoryId}`)
+    .then(res => res.json())
+    .then(data => {
+        showNewsByCategory(data.articles)
+    })
+    .catch(err =>{
+        console.log(err);
+    })
+}
 
 // const loadCategoryAsync = async () => {
 //     try {
