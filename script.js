@@ -46,7 +46,10 @@ const showNewsByCategory = (articles) =>{
                 <img src="${article.image.srcset[5].url}"
             </div>
             <h1 class="font-bold text-base md:text-lg">${article.title}</h1>
-            <p class="opacity-80 text-sm md:text-base">${article.time}</p>
+            <div class="flex justify-between items-center">
+                <p class="opacity-80 text-sm md:text-base">${article.time}</p>
+                <i class="fa-solid fa-bookmark" style="color: #b91c1c;"></i>
+            </div>
         </div>`
     })
 }
