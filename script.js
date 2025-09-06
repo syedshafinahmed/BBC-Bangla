@@ -1,12 +1,13 @@
 const categoryContainer = document.getElementById("category-container");
 const newsContainer = document.getElementById("news-container");
+const bookmarkContainer = document.getElementById("bookmark-container");
 
 const loadCategory = () => {
     fetch('https://news-api-fs.vercel.app/api/categories')
         .then(res => res.json())
         .then(data => {
             const categories = data.categories
-            console.log(categories);
+            // console.log(categories);
             showCategory(categories);
         })
         .catch(err => {
@@ -48,7 +49,7 @@ const showNewsByCategory = (articles) =>{
             <h1 class="font-bold text-base md:text-lg">${article.title}</h1>
             <div class="flex justify-between items-center">
                 <p class="opacity-80 text-sm md:text-base">${article.time}</p>
-                <i class="fa-solid fa-bookmark" style="color: #b91c1c;"></i>
+                <i id="bl" class="fa-solid fa-bookmark" style="color: #b91c1c;"></i>
             </div>
         </div>`
     })
@@ -57,7 +58,7 @@ const showNewsByCategory = (articles) =>{
 
 
 const loadNewsByCategory = (categoryId) =>{
-    console.log(categoryId);
+    // console.log(categoryId);
     fetch(`https://news-api-fs.vercel.app/api/categories/${categoryId}`)
     .then(res => res.json())
     .then(data => {
@@ -67,6 +68,11 @@ const loadNewsByCategory = (categoryId) =>{
         console.log(err);
     })
 }
+
+newsContainer.addEventListener("click", (e) =>{
+    console.log(bl);
+    // if(e.target.image)
+})
 
 
 loadNewsByCategory('main');
