@@ -1,6 +1,9 @@
 const categoryContainer = document.getElementById("category-container");
 const newsContainer = document.getElementById("news-container");
 const bookmarkContainer = document.getElementById("bookmark-container");
+bookmarkContainer.addEventListener("click", () =>{
+    console.log("bookmarked");
+})
 
 const loadCategory = () => {
     fetch('https://news-api-fs.vercel.app/api/categories')
