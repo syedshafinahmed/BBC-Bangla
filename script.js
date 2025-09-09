@@ -1,9 +1,7 @@
 const categoryContainer = document.getElementById("category-container");
 const newsContainer = document.getElementById("news-container");
 const bookmarkContainer = document.getElementById("bookmark-container");
-bookmarkContainer.addEventListener("click", () =>{
-    console.log("bookmarked");
-})
+
 
 const loadCategory = () => {
     fetch('https://news-api-fs.vercel.app/api/categories')
@@ -39,6 +37,25 @@ const showCategory = (categories) => {
     })
 }
 
+// const bookmarked = (article) =>{
+
+// }
+
+
+const bookmarked = (article) => {
+    const div = document.createElement("div");
+    div.classList.add("flex", "justify-between", "items-center", "px-3", "py-5", "border-b", "gap-x-5");
+
+    div.innerHTML = `
+        <h1 class="text-xs md:text-sm">${article.title}</h1>
+        <i class="fa-solid fa-trash cursor-pointer h-full object-cover" style="color: #B91C1C"></i>
+    `;
+    div.querySelector("i").addEventListener("click", ()=>{
+        div.remove();
+    })
+    bookmarkContainer.appendChild(div);
+};
+
 
 
 const showNewsByCategory = (articles) =>{
@@ -52,7 +69,7 @@ const showNewsByCategory = (articles) =>{
             <h1 class="font-bold text-base md:text-lg">${article.title}</h1>
             <div class="flex justify-between items-center">
                 <p class="opacity-80 text-sm md:text-base">${article.time}</p>
-                <i id="bl" class="fa-solid fa-bookmark" style="color: #b91c1c;"></i>
+                <i onclick='bookmarked(${JSON.stringify(article)})' class="fa-solid fa-bookmark" style="color: #B91C1C;"></i>
             </div>
         </div>`
     })
