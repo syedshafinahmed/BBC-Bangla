@@ -44,7 +44,7 @@ const showCategory = (categories) => {
 
 const bookmarked = (article) => {
     const div = document.createElement("div");
-    div.classList.add("flex", "justify-between", "items-center", "px-3", "py-5", "border-b", "gap-x-5");
+    div.classList.add("flex", "justify-between", "items-center", "px-3", "py-5", "border-b", "border-b-red-700", "gap-x-5");
 
     div.innerHTML = `
         <h1 class="text-xs md:text-sm">${article.title}</h1>
@@ -77,15 +77,17 @@ const showNewsByCategory = (articles) =>{
     newsContainer.innerHTML = ""
     articles.forEach(article => {
         newsContainer.innerHTML += `
-        <div class="border border-gray-300 rounded-lg p-5">
+        <div class="border border-gray-300 rounded-lg">
             <div>
-                <img src="${article.image.srcset[5].url}"
+                <img class="w-full h-60 object-cover rounded-tl-lg rounded-tr-lg" src="${article.image.srcset[5].url}"
             </div>
-            <h1 onclick='modal(${JSON.stringify(article)})' class="font-bold text-base md:text-lg">${article.title}</h1>
-            <div class="flex justify-between items-center">
-                <p class="opacity-80 text-sm md:text-base">${article.time}</p>
-                <i onclick='bookmarked(${JSON.stringify(article)})' class="fa-solid fa-bookmark" style="color: #B91C1C;"></i>
-            </div>
+            <div class="p-5">
+                <h1 onclick='modal(${JSON.stringify(article)})' class="font-bold text-base md:text-lg">${article.title}</h1>
+                <div class="flex justify-between items-center pt-5">
+                    <p class="opacity-80 text-sm md:text-base">${article.time}</p>
+                    <i onclick='bookmarked(${JSON.stringify(article)})' class="fa-solid fa-bookmark" style="color: #B91C1C;"></i>
+                </div>
+            </div>    
         </div>`
     })
 }
@@ -104,10 +106,7 @@ const loadNewsByCategory = (categoryId) =>{
     })
 }
 
-newsContainer.addEventListener("click", (e) =>{
-    console.log(bl);
-    // if(e.target.image)
-})
+
 
 
 loadNewsByCategory('main');
